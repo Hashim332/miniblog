@@ -6,7 +6,16 @@ export default function InputForm() {
       title: postTitle,
       body: postBody,
     };
-    console.log(userPost);
+
+    fetch("https://apis.scrimba.com/jsonplaceholder/posts", {
+      method: "POST",
+      body: JSON.stringify(userPost),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data));
   }
 
   return (
