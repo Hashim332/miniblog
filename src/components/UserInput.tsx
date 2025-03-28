@@ -1,4 +1,10 @@
-export default function InputForm() {
+import { Post } from "../App";
+
+interface UserInputProps {
+  setPosts: React.Dispatch<React.SetStateAction<Post[]>>; // The state setter function
+}
+
+export default function InputForm({ setPosts }: UserInputProps) {
   function postBlog(formData: FormData) {
     const postTitle = formData.get("post-title");
     const postBody = formData.get("post-body");
@@ -14,8 +20,11 @@ export default function InputForm() {
         "Content-Type": "application/json",
       },
     })
-      .then((response) => response.json())
-      .then((data) => console.log(data));
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setPosts((posts) => [...posts, data]); // get the response from the API (which has teh correct types) and use that to update posts state
+      });
   }
 
   return (
