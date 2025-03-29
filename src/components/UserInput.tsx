@@ -1,6 +1,7 @@
 import { Post } from "../App";
 
 interface UserInputProps {
+  posts: Post[];
   setPosts: React.Dispatch<React.SetStateAction<Post[]>>; // The state setter function
 }
 
@@ -22,8 +23,7 @@ export default function InputForm({ setPosts }: UserInputProps) {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
-        setPosts((posts) => [...posts, data]); // get the response from the API (which has teh correct types) and use that to update posts state
+        setPosts((posts) => [data, ...posts]); // get the response from the API (which has teh correct types) and use that to update posts state
       });
   }
 
